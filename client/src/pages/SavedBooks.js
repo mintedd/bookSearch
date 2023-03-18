@@ -16,7 +16,7 @@ import { removeBookId } from '../utils/localStorage';
 
 
 const SavedBooks = () => {
-  const [removeBook, {error}] = useMutation(REMOVE_BOOK);
+  const [removeBook] = useMutation(REMOVE_BOOK);
   const { loading, data } = useQuery(QUERY_ME);
 
   // use this to determine if `useEffect()` hook needs to run again
@@ -40,9 +40,6 @@ const SavedBooks = () => {
       } catch (err) {
         console.error(err);
       }
-      if (loading) {
-        return <h2>LOADING...</h2>;
-      }
         // if (!token) {
         //   return false;
         // }
@@ -53,6 +50,9 @@ const SavedBooks = () => {
         //   throw new Error('something went wrong!');
         // }
      
+    }
+    if (loading) {
+      return <h2>LOADING...</h2>;
     }
 
   return (
