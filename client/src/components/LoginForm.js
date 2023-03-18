@@ -25,6 +25,7 @@ const LoginForm = () => {
       event.stopPropagation();
     }
 
+    //  switched out loginUser (from routes/controllers) to ADD_USER from schema/typedefs,resolvers
     try {
       const response = await loginUser(userFormData);
 
