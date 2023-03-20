@@ -1,6 +1,8 @@
 //import model
 
 const { User } = require('../models')
+const { AuthenticationError } = require('apollo-server-express')
+const { signToken } = require('../utils/auth')
 
 const resolvers = {
     Query: {
@@ -28,7 +30,7 @@ const resolvers = {
             const token = signToken(user);
             return { token, user };
         },
-        
+
         addUser: async (parent, args) => {
             const user = await User.create(args);
             const token = signToken(user);
@@ -40,11 +42,11 @@ const resolvers = {
             if (context.user) {
                 const updatedUser = await User
                     .findOneAndUpdate(
-                        { _id: context.user._id }, 
+                        { _id: context.user._id },
                         { $addToSet: { savedBooks: bookData } },
                         { new: true },
                     )
-                    .populate("books");
+                  
                 return updatedUser;
             };
             throw new AuthenticationError("You must be logged in to save books!");
